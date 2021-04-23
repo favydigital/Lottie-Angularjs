@@ -1,2 +1,2 @@
 # Lottie-Angularjs
- Support lottie json file in angularjs proejcts
+ Support lottie json file in angularjs projects
