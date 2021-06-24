@@ -1,27 +1,40 @@
 'use strict';
 
-angular.module('lottie-animation', []).directive('lottieAnimation', ['$window', function($window){
+angular.module('lottie', []).directive('lottie', ['$window', function($window){
     return {
         restrict : 'E',
         replace : true,
+        template: '<div></div>',
         scope : {
-            options : '@',
-            width : '@',
-            height : '@',
+            options : '=',
+            width : '=',
+            height : '=',
             animCreated : '&'
         },
-        link: function(scope, element, attrs){
+        link: function(scope, ele, attrs){
             // unwrap the function
-            scope.animCreated = scope.animCreated()
-
             console.log(scope.options)
-            console.log(scope.width)
-            console.log(scope.height)
+
+            var anim = lottie.loadAnimation(scope.options)
+            scope.animCreated = anim
 
             angular.element($window).bind('resize', function () {
                 console.log('window resize')
             })  
+            scope.$watch(function(){
+                return {
+                    'width' : ele[0].offsetWidth,
+                    'height' : ele[0].offsetHeight,
+                }
+            }, function(newVal, oldVal){
+                if (angular.equals(newVal, oldVal)) 
+                    return
+                console.log(newVal)
+            }, true)
 
+            // feature functions
+
+            
             
         }
     }

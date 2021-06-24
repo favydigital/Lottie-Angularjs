@@ -1,13 +1,14 @@
 <div class="lottieSupport" ng-app="lottieApp" ng-controller="lottieCtl" ng-cloak>
     <h2>Lottie animations in Angular.js or Angular 1.x</h2>
 
-    <lottieAnimation
-        options = ""
+    <lottie
+        options = "lottieConf"
         width = "300"
         height = "400"
-        anim-created = "customAnimation()"
+        anim-created = "customAnimation($event)"
     >
-    </lottieAnimation>
+    </lottie>
+
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.7/angular.min.js"></script> 
@@ -27,21 +28,28 @@
 <script type="text/javascript">
 "use strict";
 
-var app = angular.module('lottieApp', ['lottie-animation'])
+var app = angular.module('lottieApp', ['lottie'])
 
 app.controller('lottieCtl', ['$scope', '$http', '$q', '$sce', function lottieCtl($scope, $http, $q, $sce){
     // introuduce scopes
-    $scope.lottieConf = []
-
+    $scope.lottieConf = {
+        path : './lottie-example.json',
+        renderer: 'canvas',
+        autoplay : true,
+        loop : true
+    }
+    $scope.anim = []
 
     angular.element(document).ready(function () {
         // loader
-
+        
     })
 
-    $scope.customAnimation = function(){
-        
+    $scope.customAnimation = function(anim){
+        console.log(anim)
+        $scope.anim = anim
     }
+
 
 
 }])
